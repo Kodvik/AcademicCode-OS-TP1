@@ -12,35 +12,18 @@
 ```
 
 Exemplo:
-
+*do anunciado*
 ```bash
 ./banqueiro 10 5 7
 ```
 
-## 📚 Estrutura de Dados
+## Estrutura de Dados
 
 * `disponiveis[]`: recursos atualmente disponíveis
 * `maximo[][]`: demanda máxima de cada cliente
 * `alocado[][]`: recursos atualmente alocados
 * `necessario[][]`: recursos ainda necessários
 
-## 👥 Threads
+## Threads
 
 Cada cliente roda em sua própria thread, fazendo solicitações e liberando recursos aleatoriamente, respeitando o algoritmo de segurança de Banker.
-
-## 📄 Entrega
-
-Este repositório contém:
-
-* Código-fonte (em `src/`)
-* Makefile
-* README explicativo
-
-Você pode incluir o link deste repositório no relatório PDF a ser entregue.
-
-```
-
----
-
-Se quiser, posso gerar um `.zip` com todos os arquivos prontos ou ajudá-lo a criar o repositório público no GitHub com nome, descrição e push inicial. Deseja isso agora?
-```
