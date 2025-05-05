@@ -1,0 +1,126 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\title{OS - TP 1 - PUC MINAS S1 2025}
+\author{Edgard de Paiva Melo Filho}
+\date{\today}
+
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegray},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{red},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\begin{document}
+
+\maketitle
+
+\section*{Repositório do Projeto}
+\href{https://github.com/Kodvik/AcademicCode-OS-TP1}{github.com/Kodvik/AcademicCode-OS-TP1}
+
+\section{Introdução}
+O Algoritmo do Banqueiro, proposto por Dijkstra, é utilizado para prevenção de deadlocks em sistemas operacionais. conforme solicitado esse trabalho prático tem como objetivo implementar esse algoritmo usando linguagem C, dando um grande foco na utilização dos conceitos de programação concorrente e controle de acesso crítico com \texttt{pthread\_mutex}.
+
+\section{Objetivos}
+\begin{itemize}
+  \item Simular clientes solicitando e liberando recursos de forma concorrente.
+  \item Garantir que o sistema esteja sempre em estado seguro após cada requisição.
+  \item Utilizar \texttt{mutex} para evitar condições de corrida no acesso às estruturas compartilhadas.
+\end{itemize}
+
+\section{Bibliotecas Utilizadas}
+Alem das bibliotecas padrão do C, foram utilizadas as seguintes bibliotecas:
+\begin{itemize}
+  \item \texttt{pthread.h} -- Manipulação de threads e locks mutex.
+  \item \texttt{unistd.h} -- Controle de tempo (função \texttt{sleep}).
+  \item \texttt{string.h} -- Funções de manipulação de strings.
+\end{itemize}
+
+\section{Descrição do Funcionamento}
+Ao iniciar o programa, os recursos disponíveis são definidos por linha de comando. O vetor \texttt{available[]} é inicializado com esses valores.
+
+Em seguida, são criadas múltiplas threads de clientes. Cada cliente entra em um loop onde:
+\begin{enumerate}
+  \item Gera uma requisição de recursos aleatória, respeitando sua necessidade máxima.
+  \item Chama a função \texttt{request\_resources}, que:
+    \begin{itemize}
+      \item Verifica se a requisição pode ser atendida.
+      \item Simula a alocação.
+      \item Verifica o estado de segurança do sistema com o algoritmo de segurança.
+    \end{itemize}
+  \item Após o uso, libera os recursos com \texttt{release\_resources}.
+\end{enumerate}
+
+\section{Compilação e Execução}
+\subsection{Compilação}
+
+Para compilar o projeto, utilize o comando \texttt{make}, que se apoia em um \texttt{Makefile} configurado para compilar automaticamente o código-fonte com \texttt{gcc} e suporte a \texttt{pthread}. Isso evita a necessidade de compilar manualmente com instruções longas como:
+(sei que não foi requisitado usar o makefile, mas como é só para automatizar o processo de compilação, mesmo não sendo de tudo necessário eu estou tentando criar o habito de usar makefile, resolvi fazer um então para facilitar um pouco).
+
+\begin{lstlisting}
+gcc -pthread -o banqueiro src/main.c
+\end{lstlisting}
+
+\subsection{Execução com Argumentos de Linha de Comando}
+
+Após a compilação, o programa é executado com:
+
+\begin{lstlisting}
+./banker 10 5 7
+\end{lstlisting}
+
+Esses números representam a quantidade de instâncias disponíveis para cada tipo de recurso. No exemplo acima:
+
+\begin{itemize}
+  \item \texttt{10} é o número de instâncias do recurso tipo 0;
+  \item \texttt{5} é o número de instâncias do recurso tipo 1;
+  \item \texttt{7} é o número de instâncias do recurso tipo 2.
+\end{itemize}
+
+Você pode passar qualquer outra sequência de números inteiros positivos, como:
+
+\begin{lstlisting}
+./banker 8 3 4 2
+\end{lstlisting}
+
+Esse exemplo simula um sistema com quatro tipos de recursos.
+
+\textbf{Importante:} É necessário passar pelo menos um argumento, e os valores devem ser inteiros positivos. Caso contrário, o programa exibirá uma mensagem de erro.
+
+Para compilar o projeto, utilize o comando \texttt{make}.
+
+A execução do programa é feita com:
+
+\begin{lstlisting}
+./banker 10 5 7
+\end{lstlisting}
+
+Onde os números representam os recursos disponíveis para cada tipo.
+
+\end{document}
